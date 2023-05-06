@@ -3,7 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'webpacker'
 
-gem 'rspec-rails'
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
