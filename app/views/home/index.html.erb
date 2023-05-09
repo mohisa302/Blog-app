@@ -2,15 +2,29 @@
 <html>
   <head>
     <title>My App</title>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <%= stylesheet_link_tag 'application.tailwind' %>
   </head>
   <body>
-    <div class="flex items-center justify-center h-screen">
-      <div class="border rounded-lg p-4">
-        <img class="w-32 h-32 rounded-full mb-4" src="https://via.placeholder.com/150">
-        <div class="text-center">
-          <h1 class="text-lg font-bold">User name</h1>
-          <p class="text-red-600">Number of posts</p>
+    <div>
+      <div class="rounded-lg p-8 flex items-center">
+        <img class="w-32 h-fill border" src="https://via.placeholder.com/150">
+        <div class="ml-4 h-fill text-center flex inform border">
+          <h1 class="font-bold mr-4 mb-2 header-font">User name</h1>
+          <p class="text-red-600 par">Number of posts: x</p>
+        </div>
+      </div>
+       <div class="rounded-lg p-8 flex items-center">
+        <img class="w-32 h-fill border" src="https://via.placeholder.com/150">
+        <div class="ml-4 h-fill text-center flex inform border">
+          <h1 class="font-bold mr-4 mb-2 header-font">User name</h1>
+          <p class="text-red-600 par">Number of posts: x</p>
+        </div>
+      </div>
+       <div class="rounded-lg p-8 flex items-center">
+        <img class="w-32 h-fill border" src="https://via.placeholder.com/150">
+        <div class="ml-4 h-fill text-center flex inform border">
+          <h1 class="font-bold mr-4 mb-2 header-font">User name</h1>
+          <p class="text-red-600 par">Number of posts: x</p>
         </div>
       </div>
     </div>
