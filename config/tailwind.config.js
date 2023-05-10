@@ -10,15 +10,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter var', 'sans-serif'],
       },
     },
-    container: false, // disable the container class
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/container-queries'),
-  ],
+  variants: {},
+  plugins: [],
 };
