@@ -24,17 +24,25 @@ RSpec.describe "Users", type: :request do
 
   describe "GET #show" do
     let(:user) { User.create(name: "John Doe", posts_counter: 0) }
-    let(:post) { user.posts.create(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 1) }
-
+  
     it "returns a successful response" do
-      get user_post_path(user_id: user.id, id: post.id)
+      get user_path(user)
       expect(response).to be_successful
     end
+  
+    it "renders successfully" do
+      get user_path(user)
+      expect(response).to render_template(:show)
+    end
+  
+    it "has a correct status" do
+      get user_path(user)
+      expect(response.status).to eq(200)
+    end
 
-    it "assigns the correct user and post" do
-      get user_post_path(user_id: user.id, id: post.id)
-      expect(assigns(:user)).to eq(user)
-      expect(assigns(:post)).to eq(post)
+    it "renders correct view" do
+      get user_path(user)
+      expect(response.body).to include('Here are the detials about User')
     end
   end
 end
