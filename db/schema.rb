@@ -51,8 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_505_182_425) do
     t.integer 'posts_counter'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.integer 'posts_count'
-    t.index ['posts_count'], name: 'index_users_on_posts_count'
+    t.index ['posts_counter'], name: 'index_users_on_posts_count'
   end
 
   add_foreign_key 'comments', 'posts'
