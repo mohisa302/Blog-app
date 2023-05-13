@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-   <%= stylesheet_link_tag 'application.tailwind' %>
-  </head>
-  <body>
-<div class="container">
+<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
 <section class="rounded-lg p-8 flex items-center">
-    <img class="h-48 border" src="<%= @user.photo %>">
+    <img class="border" src="<%= @user.photo %>">
     <div class="ml-4 text-center flex inform border">
       <h2 class="font-bold mr-4 mb-2 header-font"><%= @user.name %></h2>
       <p class="text-red-600 par">Number of posts: <%= @user.posts_counter %></p>
@@ -15,18 +9,17 @@
 <% @posts.each do |post| %>
     <div class="rounded-lg p-8 items-center border">
         <h3 class="font-bold">Post # post<%= post.id %></h3>
-        <p class=""><%= post.text %> <%= post.recent_comments.length %></p>
+        <p class="mt-4"><%= post.text %> <%= post.recent_comments.length %></p>
         <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= post.comments_counter %>, likes: <%= post.likes_counter %></h5>
     </div>
   <% if post.recent_comments.any? %>
       <% post.recent_comments.each do |comment| %>
         <div class="border">
-          <p> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+          <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
         </div>
       <% end %>
     <% end %>
      <% end %>
+     <button class="border p-6 font-bold mb-4" style="width:20%; margin-left:40%;">pagination</button>
 </div>
-<button class="border p-6  font-bold btn">pagination</button>
-  </body>
-</html>
+

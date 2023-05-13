@@ -42,20 +42,10 @@ body {
   font-size: xx-large;
 }
 
-.btn {
-  padding: 2%;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-}
-
-.container {
+/* .container {
   display: flex;
   row-gap: 1rem;
   flex-direction: column;
   align-items: center;
   padding: 2%;
-}
-
-.pic {
-  height: 30px;
-}
+} */

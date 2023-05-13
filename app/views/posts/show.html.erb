@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  <title> post </title>
-    <%= stylesheet_link_tag 'application.tailwind', media: 'all', 'data-turbolinks-track': 'reload' %>
-  </head>
-  <body>
-   <div class="container">
+<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
   <div>
     <div class="rounded-lg p-8 items-center border">
       <div class="flex justify-between">
@@ -16,8 +9,8 @@
     </div>
  <% if @post.recent_comments.any? %>
       <% @post.recent_comments.each do |comment| %>
-        <div class="font-bold border m-4">
-          <p> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+       <div class="border mt-4">
+          <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
         </div>
       <% end %>
     <% end %>

@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+.btn {
+  padding: 2%;
+  margin-top: 5rem;
+  /* margin-bottom: 5rem; */
+}
