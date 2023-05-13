@@ -34,7 +34,7 @@ Rails.application.configure do
   end
 
   config.assets.debug = true
-  
+
   config.assets.digest = false
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
