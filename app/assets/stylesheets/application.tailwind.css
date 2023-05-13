@@ -24,7 +24,8 @@ body {
 }
 
 .inform {
-  width: 93vw;
+  width: 100%;
+  height: 20vh;
   padding: 0.6rem;
   justify-content: space-between;
 }
@@ -33,9 +34,9 @@ body {
   margin-top: 5rem;
 }
 
-.text-right {
+/* .text-right {
   text-align: right;
-}
+} */
 
 .header-font {
   font-size: xx-large;
@@ -53,4 +54,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 2%;
+}
+
+.pic {
+  height: 30px;
 }
