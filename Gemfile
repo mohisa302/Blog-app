@@ -7,6 +7,8 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+gem 'rails-controller-testing'
+
 gem 'sassc'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
