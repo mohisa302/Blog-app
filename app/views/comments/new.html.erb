@@ -1,6 +1,10 @@
-<h1>Create a new comment</h1>
-<%= form_for model: Comment, url: comments_path do |f| %>
-  <%= f.text_field :text %>
-  <%= f.hidden_field :post_id, value: @post.id %>
-  <%= f.submit "Create Comment" %>
-<% end %>
+
+  <ul class="li-box items-center" style="padding: 2rem;">
+    <h3 class="form-head font-bold" style="margin-bottom: 3rem;">Coment form</h3>
+    <%= form_with(model: @comment, url: user_post_comments_path(@post), local: true) do |form| %>
+      <div>
+        <%= form.text_area :body, placeholder: "Enter your comment", class: "border form-text-area" %>
+      </div>
+      <%= form.submit "Add Comment", class: "button border form-button", style:"padding:r1em;" %>
+    <% end %>
+  </ul>

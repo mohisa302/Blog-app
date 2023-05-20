@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def index
     # Set instance variable @users (assuming you have a User model)
     @users = User.all
+    @current_user = current_user
     # Render the index view
   end
 

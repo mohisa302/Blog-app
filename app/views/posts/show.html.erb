@@ -14,10 +14,16 @@
           <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
           <p> <%= comment.text %></p>
         </div>
+        <div>
+            <%= form_with model: @like, url: user_post_likes_path(@user, @post) do |form|%>
+                <%= form.submit 'Like post', class: 'button like-button' %>
+            <%end%>
+          </div>
       <% end %>
         </div>
     <% end %>
   </div>
 </div>
-  </body>
-</html>
+  <li class="li-box">
+    <a href="<%= url_for(new_user_post_comment_path(@user, @post)) %>" class="button button-wide">Add Comment</a>
+  </li>
