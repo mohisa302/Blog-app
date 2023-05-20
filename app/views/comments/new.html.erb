@@ -3,7 +3,7 @@
     <h3 class="form-head font-bold" style="margin: 2rem;">Coment form</h3>
     <%= form_with(model: @comment, url: user_post_comments_path(@post), local: true) do |form| %>
       <div>
-        <%= form.text_area :body, placeholder: "Enter your comment", class: "border form-text-area" %>
+        <%= form.text_area :text, placeholder: "Enter your comment", class: "border form-text-area" %>
       </div>
       <%= form.submit "Add Comment", class: "button border form-button", style: 'background-color: blue; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
     <% end %>
