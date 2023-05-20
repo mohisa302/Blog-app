@@ -6,8 +6,9 @@ class PostsController < ApplicationController
     @posts = @user.posts
     # Render the index view
   end
-
+  
   def show
+    @comments = Comment.where(post_id: params[:id])
     # Set instance variable @user (assuming you have a User model)
     @post = Post.find(params[:id])
     @user = @post.author
