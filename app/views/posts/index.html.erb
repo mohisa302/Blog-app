@@ -7,11 +7,13 @@
     </div>
 </section>
 <% @posts.each do |post| %>
+<a href="<%= user_post_path(@user, post) %>">
     <div class="rounded-lg p-8 items-center border">
         <h3 class="font-bold">Post # post<%= post.id %></h3>
         <p class="mt-4"><%= post.text %> <%= post.recent_comments.length %></p>
         <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= post.comments_counter %>, likes: <%= post.likes_counter %></h5>
     </div>
+    </a>
   <% if post.recent_comments.any? %>
       <% post.recent_comments.each do |comment| %>
         <div class="border">
