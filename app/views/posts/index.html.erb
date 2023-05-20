@@ -15,11 +15,11 @@
     </div>
     </a>
   <% if post.recent_comments.any? %>
-      <% post.recent_comments.each do |comment| %>
         <div class="border">
-          <p class="font-bold"  style="padding: 2rem"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
-        </div>
+      <% post.recent_comments.each do |comment| %>
+          <p class="font-bold"  style="padding: 1rem"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
       <% end %>
+        </div>
     <% end %>
      <% end %>
      <button class="border p-6 font-bold mb-4" style="width:20%; margin-left:40%;">pagination</button>

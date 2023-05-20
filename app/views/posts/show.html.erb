@@ -8,12 +8,14 @@
       <p class=""><%= @post.text %> </p>
     </div>
  <% if @post.recent_comments.any? %>
-      <% @post.recent_comments.each do |comment| %>
        <div class="border mt-4" style="padding: 2rem">
+      <% @post.recent_comments.each do |comment| %>
+      <div>
           <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
-          <p> <%=comment.text%></p>
+          <p> <%= comment.text %></p>
         </div>
       <% end %>
+        </div>
     <% end %>
   </div>
 </div>
