@@ -1,1 +1,27 @@
-<h1>Here are the detials about User</h1>
+<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
+<section class="rounded-lg p-2 flex items-center">
+    <img class="border" src="<%= @user.photo %>">
+    <div class="ml-4 text-center flex inform border">
+      <h2 class="font-bold mr-4 mb-2 header-font"><%= @user.name %></h2>
+      <p class="text-red-600 par">Number of posts: <%= @user.posts_counter %></p>
+    </div>
+    <!-- display user's posts, comments, likes, etc. -->
+</section>
+<section class="rounded-lg border p-8 items-center">
+        <h3 class="font-bold">Bio</h3>
+        <p class="mt-4">
+        <%= @user.bio %>
+        </p>
+</section>
+<% @user.recent_posts.each do |post| %>
+<section class="rounded-lg p-8 items-center border"">
+    <h3 class="font-bold">Post #<%= post.id %></h3>
+        <p class="mt-4"><%= post.text %></p>
+    <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= post.comments_counter %>, likes: <%= post.likes_counter %></h5>
+    <!-- display user's posts, comments, likes, etc. -->
+</section>
+<% end %>
+<a href="<%= user_posts_path(@user) %>">
+<button class="border p-6 font-bold" style="width:20%; margin-left:40%;">See all posts</button>
+</a>
+</div>

@@ -12,6 +12,7 @@ class PostsController < ApplicationController
     @user = User.find(params[:user_id])
     # Set instance variable @post (assuming you have a Post model)
     @post = @user.posts.find(params[:id])
+    @comments = Comment.where(post_id: params[:id])
     # Render the show view
   end
 end

@@ -1,1 +1,23 @@
-<h1>Here is a post POST for user X </h1>
+<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
+  <div>
+    <div class="rounded-lg p-8 items-center border">
+      <div class="flex justify-between">
+        <h3 class="font-bold">Post #1 by <%= @user.name %></h3>
+        <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= @post.comments_counter %>, likes: <%= @post.likes_counter %></h5>
+      </div>
+      <p class=""><%= @post.text %> </p>
+    </div>
+ <% if @post.recent_comments.any? %>
+       <div class="border mt-4" style="padding: 2rem">
+      <% @comments.each do |comment| %>
+      <div>
+          <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+          <p> <%= comment.text %></p>
+        </div>
+      <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>
+  </body>
+</html>
