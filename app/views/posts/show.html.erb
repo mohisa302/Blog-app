@@ -9,8 +9,9 @@
     </div>
  <% if @post.recent_comments.any? %>
       <% @post.recent_comments.each do |comment| %>
-       <div class="border mt-4">
-          <p class="font-bold" style="padding: 2rem"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+       <div class="border mt-4" style="padding: 2rem">
+          <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+          <p> <%=comment.text%></p>
         </div>
       <% end %>
     <% end %>
