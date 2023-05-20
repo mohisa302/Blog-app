@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@rails/webpacker": "5.4.4",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
