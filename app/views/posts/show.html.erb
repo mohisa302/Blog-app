@@ -16,7 +16,8 @@
         </div>
         <div>
             <%= form_with model: @like, url: user_post_likes_path(@user, @post) do |form|%>
-                <%= form.submit 'Like post', class: 'button like-button' %>
+               <%= form.submit 'Like post', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
+
             <%end%>
           </div>
       <% end %>
@@ -25,5 +26,5 @@
   </div>
 </div>
   <li class="li-box">
-    <a href="<%= url_for(new_user_post_comment_path(@user, @post)) %>" class="button button-wide">Add Comment</a>
+    <a href="<%= url_for(new_user_post_comment_path(@user, @post)) %>" class="button button-wide" style='background-color: black; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' >Add Comment</a>
   </li>
