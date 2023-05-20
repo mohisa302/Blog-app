@@ -1,0 +1,6 @@
+<h1>Create a new comment</h1>
+<%= form_for model: Comment, url: comments_path do |f| %>
+  <%= f.text_field :text %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit "Create Comment" %>
+<% end %>
