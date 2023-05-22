@@ -1,16 +1,13 @@
 class PostsController < ApplicationController
   def index
-    # Set instance variable @user (assuming you have a User model)
-    @user = User.find(params[:user_id])
-    # Set instance variable @posts (assuming you have a Post model)
-    @posts = @user.posts
-    # Render the index view
+    @user = User.includes(:posts).find(params[:user_id])
+    @posts = @user.posts.order(created_at: :desc)
   end
 
   def show
     @comments = Comment.where(post_id: params[:id])
     # Set instance variable @user (assuming you have a User model)
-    @post = Post.find(params[:id])
+    @post = Post.includes(:comments, :likes).where(author_id: params[:user_id]).find(params[:id])
     @user = @post.author
   end
 
