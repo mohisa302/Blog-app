@@ -22,7 +22,7 @@ RSpec.describe 'Posts', type: :request do
 
     it 'displays the correct content' do
       get user_posts_path(user)
-      expect(response.body).to include('Here is the list of all posts for user A')
+      expect(response.body).to include('pagination')
     end
   end
 

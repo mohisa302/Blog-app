@@ -90,3 +90,8 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+require 'capybara/rspec'
+
+Capybara.app_host = 'http://localhost:3000'
+Capybara.server_host = 'localhost'
+Capybara.server_port = '3000'
