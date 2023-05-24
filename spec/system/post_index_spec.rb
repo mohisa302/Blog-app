@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe 'Post index page', type: :feature do
   before(:each) do
     @user = User.create(
@@ -87,6 +89,11 @@ RSpec.describe 'Post index page', type: :feature do
     it 'section for pagination if there are more posts than fit on the view' do
       visit user_posts_path(@user)
       expect(page).to have_content('pagination')
+    end
+
+    it 'displays how many comments a post has' do
+      visit user_posts_path(@user)
+      expect(page).to have_content('comments: 2')
     end
 
     it 'click on a post, it redirects to that post show page.' do
