@@ -14,7 +14,7 @@
         </p>
 </section>
 <% @user.recent_posts.each do |post| %>
-<section class="rounded-lg p-8 items-center border"">
+<section class="rounded-lg p-8 items-center border">
     <h3 class="font-bold">Post #<%= post.id %></h3>
         <h3 class="mt-4 text-blue-900"> <%= post.title %> </h3>
         <p class="mt-4"><%= post.text %></p>
