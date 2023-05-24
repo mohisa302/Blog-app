@@ -41,7 +41,7 @@ RSpec.describe 'User index', type: :feature do
     it 'shows the user_path when clicked' do
       visit users_path
       find('a', text: 'Mohi2').click
-      expect(page).to have_current_path(user_path(@user2.id))
+      expect(page).to have_current_path(user_path(@user2))
     end
 
     it 'it shows the bio in show path' do
