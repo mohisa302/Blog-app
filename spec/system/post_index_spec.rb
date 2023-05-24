@@ -89,7 +89,10 @@ RSpec.describe 'Post index page', type: :feature do
       expect(page).to have_content('pagination')
     end
 
-    it 'click on a post, it redirects me to that post show page.' do
+    it 'click on a post, it redirects to that post show page.' do
+      visit user_posts_path(@user)
+      click_link 'Test'
+      expect(page).to have_current_path(user_post_path(@user, @post1))
     end
   end
 end
