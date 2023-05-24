@@ -52,7 +52,6 @@ RSpec.describe 'Post index page', type: :feature do
     it 'displays user profile picture' do
       visit user_posts_path(@user)
       expect(page).to have_css("img[src*='https://via.placeholder.com/150']")
-
     end
 
     it 'displays the user username' do
@@ -87,7 +86,7 @@ RSpec.describe 'Post index page', type: :feature do
 
     it 'section for pagination if there are more posts than fit on the view' do
       visit user_posts_path(@user)
-  
+      expect(page).to have_content('pagination')
     end
 
     it 'click on a post, it redirects me to that post show page.' do
