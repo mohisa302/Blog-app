@@ -9,7 +9,7 @@
 <% @posts.each do |post| %>
 <a href="<%= user_post_path(@user, post) %>">
     <div class="rounded-lg p-8 items-center border">
-        <h3 class="font-bold">Post # post<%= post.id %></h3>
+        <h3 class="font-bold">Post #<%= post.id %>: <%= post.title %></h3>
         <p class="mt-4"><%= post.text %> <%= post.recent_comments.length %></p>
         <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= post.comments_counter %>, likes: <%= post.likes_counter %></h5>
     </div>
@@ -17,7 +17,7 @@
   <% if post.recent_comments.any? %>
         <div class="border">
       <% post.recent_comments.each do |comment| %>
-          <p class="font-bold"  style="padding: 1rem"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
+          <p class="font-bold"  style="padding: 1rem"> <%= comment.author.name %>: <%= comment.text %> <p>
       <% end %>
         </div>
     <% end %>
