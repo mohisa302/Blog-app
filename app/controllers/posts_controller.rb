@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     new_comment = Comment.new
     new_like = Like.new
     respond_to do |format|
-      format.html { render :show, locals: { new_comment: new_comment, new_like: new_like } }
+      format.html { render :show, locals: { new_comment:, new_like: } }
     end
   end
 
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
     post_params = params.require(:post).permit(:title, :text)
     @post = current_user.posts.build(post_params)
 
-    respond_to do |format|
+    respond_to do |_format|
       if @post.save
         flash[:notice] = 'Post created successfully'
         redirect_to users_path
