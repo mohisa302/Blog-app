@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'users#index'
+  
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
 
   get '/users', to: 'users#index'
   resources :users, only: %i[index show] do
