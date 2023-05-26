@@ -1,7 +1,5 @@
 /* function-calc-no-invalid */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 html {
   box-sizing: border-box;
