@@ -1,16 +1,8 @@
+/* function-calc-no-invalid */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
-
-*/
 html {
   box-sizing: border-box;
 }
@@ -34,21 +26,9 @@ body {
   margin-top: 5rem;
 }
 
-/* .text-right {
-  text-align: right;
-} */
-
 .header-font {
   font-size: xx-large;
 }
-
-/* .container {
-  display: flex;
-  row-gap: 1rem;
-  flex-direction: column;
-  align-items: center;
-  padding: 2%;
-} */
 
 .user-data {
   display: flex;

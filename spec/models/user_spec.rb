@@ -1,4 +1,4 @@
-require 'rails_helper'
+srequire 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { User.new(name: 'John Doe', posts_counter: 3) }
