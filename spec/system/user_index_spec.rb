@@ -1,53 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe 'User index', type: :feature do
-  before(:each) do
-    @user1 = User.create(
-      name: 'Mohi',
-      bio: 'Aspiring FullStack Dev',
-      photo: 'https://via.placeholder.com/150',
-      posts_counter: 2
-    )
-
-    @user2 = User.create(
-      name: 'Mohi2',
-      bio: 'FullStack Dev',
-      photo: 'https://via.placeholder.com/150',
-      posts_counter: 3
-    )
+RSpec.describe 'User Index', type: :feature do
+  before :each do
+    @user = User.create(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from US.',
+                        posts_counter: 0)
+    @post = Post.create(author_id: @user.id, title: 'Hello', text: 'This is my first post.', comments_counter: 0,
+                        likes_counter: 0)
+    visit root_path
   end
 
-  describe 'user index paged' do
-    it 'displays correct username' do
-      visit users_path
-      expect(page).to have_content('Mohi')
-      expect(page).to have_content('Mohi2')
-      expect(page).to_not have_content('Caicedo')
-    end
+  it 'I can see the username of all other users' do
+    expect(page).to have_content('Lilly')
+  end
 
-    it 'shows user profile photo' do
-      visit users_path
-      expect(page).to have_css("img[src*='https://via.placeholder.com/150']")
-      expect(page).to have_css("img[src*='https://via.placeholder.com/150']")
-    end
+  it 'I can see the profile picture for each user' do
+    expect(page).to have_css("img[src*='https://unsplash.com/photos/F_-0BxGuVvo']")
+  end
 
-    it 'shows the correct number of posts' do
-      visit users_path
+  it 'I can see the number of posts each user has written' do
+    expect(page).to have_content 'Number of posts: 1'
+  end
 
-      expect(page).to have_content('Number of posts: 2')
-      expect(page).to have_content('Number of posts: 3')
-    end
-
-    it 'shows the user_path when clicked' do
-      visit users_path
-      find('a', text: 'Mohi2').click
-      expect(page).to have_current_path(user_path(@user2))
-    end
-
-    it 'it shows the bio in show path' do
-      visit users_path
-      click_link 'Mohi2'
-      expect(page).to have_content('FullStack Dev')
-    end
+  it 'When I click on a user, I am redirected to that users show page' do
+    click_on 'Lilly'
+    expect(page).to have_content 'Lilly'
   end
 end

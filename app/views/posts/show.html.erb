@@ -10,16 +10,18 @@
     </div>
  <% if @post.recent_comments.any? %>
        <div class="border mt-4" style="padding: 2rem">
-      <% @comments.each do |comment| %>
+      <% @post.comments.each do |comment| %>
       <div>
           <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
           <p> <%= comment.text %></p>
         </div>
         <div>
-            <%= form_with model: @like, url: user_post_likes_path(@user, @post) do |form|%>
-               <%= form.submit 'Like post', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
+        <%= form_with model: [@user, @post.likes.build], url: user_post_likes_path(@user, @post) do |form| %>
+  <%= form.hidden_field :post_id, value: @post.id %>
+  <%= form.submit 'Like post', class: 'btn btn-primary', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
+<% end %>
 
-            <%end%>
+
           </div>
       <% end %>
         </div>

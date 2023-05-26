@@ -1,37 +1,39 @@
 class PostsController < ApplicationController
   def index
-    # Set instance variable @user (assuming you have a User model)
-    @user = User.find(params[:user_id])
-    # Set instance variable @posts (assuming you have a Post model)
-    @posts = @user.posts.includes(:comments, :likes)
-    # Render the index view
+    @user = User.includes(:posts).find(params[:user_id])
+    @posts = @user.posts.order(created_at: :desc)
   end
 
   def show
-    @post = Post.includes(:comments, :likes, :author).find(params[:id])
-    @comments = @post.comments
-    # Set instance variable @user (assuming you have a User model)
-    @user = @post.author
+    @post = Post.includes(:comments, :likes).where(author_id: params[:user_id]).find(params[:id])
+    @user = User.find(params[:user_id])
+    new_comment = Comment.new
+    new_like = Like.new
+    respond_to do |format|
+      format.html { render :show, locals: { new_comment:, new_like: } }
+    end
   end
 
   def new
     @post = Post.new
-  end
-
-  def create
-    @post = current_user.posts.new(post_params)
-    if @post.save
-      flash[:success] = 'Post created successfully'
-      redirect_to "/users/#{current_user.id}/posts"
-    else
-      flash[:danger] = "Couldn't create post"
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      format.html { render :new, locals: { post: @post } }
     end
   end
 
-  private
+  def create
+    post_params = params.require(:post).permit(:title, :text)
+    @post = current_user.posts.build(post_params)
 
-  def post_params
-    params.require(:post).permit(:title, :body)
+    respond_to do |_format|
+      if @post.save
+        flash[:notice] = 'Post created successfully'
+        redirect_to users_path
+      else
+        Rails.logger.error(@post.errors.full_messages)
+        flash.now[:alert] = 'Post creation failed'
+        render :new, locals: { post: @post }
+      end
+    end
   end
 end
