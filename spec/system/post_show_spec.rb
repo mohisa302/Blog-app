@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe 'Post show page', type: :feature do
   before(:each) do
     @user = User.create(
