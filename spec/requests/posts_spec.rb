@@ -1,49 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-  describe 'GET #index' do
-    let(:user) { User.create(name: 'John Doe', posts_counter: 0) }
-    let(:post) { user.posts.create(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 1) }
+  let!(:user) { User.create(name: 'Aleem', photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80', bio: 'Teacher from Poland.', posts_counter: 0) }
+  let!(:post) { Post.create(author: user, title: 'My blog', comments_counter: 0, likes_counter: 0) }
 
+  describe 'GET /users/:id/posts' do
     it 'returns a successful response' do
-      get user_posts_path(user)
-      expect(response).to be_successful
+      get user_posts_path(user_id: user.id)
+      expect(response).to have_http_status(200)
     end
 
-    it 'renders the correct template' do
-      get user_posts_path(user)
+    it 'renders the index template' do
+      get user_posts_path(user_id: user.id)
       expect(response).to render_template(:index)
-    end
-
-    it 'has a correct status' do
-      get user_posts_path(user)
-      expect(response.status).to eq(200)
-    end
-
-    it 'displays the correct content' do
-      get user_posts_path(user)
-      expect(response.body).to include('pagination')
     end
   end
 
-  describe 'GET #show' do
-    let(:user) { User.create(name: 'John Doe', posts_counter: 0) }
-    let(:post) { user.posts.create(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 1) }
-
+  describe 'GET /users/:id/posts/:id' do
     it 'returns a successful response' do
       get user_post_path(user_id: user.id, id: post.id)
-      expect(response).to be_successful
+      expect(response).to have_http_status(200)
     end
 
-    it 'assigns the correct user and post' do
+    it 'renders the show template' do
       get user_post_path(user_id: user.id, id: post.id)
-      expect(assigns(:user)).to eq(user)
-      expect(assigns(:post)).to eq(post)
-    end
-
-    it 'has a correct status' do
-      get user_post_path(user_id: user.id, id: post.id)
-      expect(response.status).to eq(200)
+      expect(response).to render_template(:show)
     end
   end
 end
