@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:comments, :likes).where(author_id: params[:user_id]).find(params[:id])
+    authorize! :read, @post
     @user = User.find(params[:user_id])
     new_comment = Comment.new
     new_like = Like.new
