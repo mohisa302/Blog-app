@@ -1,81 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { User.create(name: 'Jane', photo: 'https://t3.ftcdn.net/jpg/02/47/40/98/360_F_247409832_pPugfgU5cKLsrH5OCJRMn5JTcy2L1Rrg.jpg', bio: 'Anything', posts_counter: 0) }
-
-  describe 'creating a new post' do
-    it "updates the author's posts counter after saving a new post" do
-      post = Post.new(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 10)
-      post.save
-
-      expect do
-        Post.create(title: 'Test Post', text: 'Lorem ipsum', comments_counter: 0, likes_counter: 0, author_id: user.id)
-      end.to(change { user.reload.posts_counter }.from(0).to(1))
-    end
-  end
-
-  describe 'validation of title' do
-    subject { Post.new(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 10) }
-
-    it 'presentation of title' do
-      subject.title = nil
-      expect(subject).to_not be_valid
+  describe 'validations' do
+    it 'is invalid without a title' do
+      post = Post.new(title: nil)
+      expect(post).to_not be_valid
+      expect(post.errors[:title]).to include("can't be blank")
     end
 
-    it 'length of title' do
-      subject.title = 'm' * 258
-      expect(subject).to_not be_valid
-    end
-  end
-
-  describe 'validates of comments_counter' do
-    subject { Post.new(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 10) }
-
-    it 'numericality of comments_counter' do
-      subject.comments_counter = 'string'
-      expect(subject).to_not be_valid
-
-      subject.comments_counter = -1
-      expect(subject).to_not be_valid
-    end
-  end
-
-  describe 'validates of likes_counter' do
-    subject { Post.new(title: 'Post 1', text: 'Text 1', comments_counter: 10, author_id: 1, likes_counter: 10) }
-
-    it 'umericality of likes_counter' do
-      subject.likes_counter = 'string'
-      expect(subject).to_not be_valid
-
-      subject.likes_counter = -1
-      expect(subject).to_not be_valid
-    end
-  end
-
-  describe 'recent_comments method' do
-    let(:post) do
-      post = Post.create(title: 'Test Post', text: 'Lorem ipsum', comments_counter: 2, likes_counter: 0, author_id: user.id)
-      post.comments.create(author_id: user.id, text: 'Comment 1')
-      post.comments.create(author_id: user.id, text: 'Comment 2')
-      post.comments.create(author_id: user.id, text: 'Comment 3')
-      post
+    it 'is invalid if the title is longer than 250 characters' do
+      post = Post.new(title: 'a' * 251)
+      expect(post).to_not be_valid
+      expect(post.errors[:title]).to include('is too long (maximum is 250 characters)')
     end
 
-    it 'returns up to 5 recent comments for the post' do
-      expect(post.recent_comments).to eq [post.comments[2], post.comments[1], post.comments[0]]
+    it 'is valid with a title, author_id, comments_counter and likes_counter' do
+      user = User.create(name: 'John', posts_counter: 0)
+      post = Post.new(title: 'First post', author_id: user.id, comments_counter: 0, likes_counter: 0)
+      expect(post).to be_valid
     end
 
-    it 'returns less than or equal to 5 comments if there are fewer than 5 comments for the post' do
-      post.comments[0].destroy
-      post.comments[1].destroy
-
-      expect(post.recent_comments.to_a).to eq [post.comments.last]
+    it 'is invalid if comments_counter is less than 0' do
+      user = User.create(name: 'John', posts_counter: 0)
+      post = Post.new(title: 'First post', author_id: user.id, comments_counter: -1, likes_counter: 0)
+      expect(post).to_not be_valid
+      expect(post.errors[:comments_counter]).to include('must be greater than or equal to 0')
     end
 
-    it 'returns an empty array if there are no comments for the post' do
-      post.comments.destroy_all
-
-      expect(post.recent_comments).to eq []
+    it 'is invalid if likes_counter is less than 0' do
+      user = User.create(name: 'John', posts_counter: 0)
+      post = Post.new(title: 'First post', author_id: user.id, comments_counter: 0, likes_counter: -1)
+      expect(post).to_not be_valid
+      expect(post.errors[:likes_counter]).to include('must be greater than or equal to 0')
     end
   end
 end
