@@ -18,7 +18,7 @@ RSpec.describe 'Users', type: :request do
     end
     it 'renders correct view' do
       get users_path
-      expect(response.body).to include('Here is a list of all users')
+      expect(response.body).to include('Blogapp')
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe 'Users', type: :request do
 
     it 'renders correct view' do
       get user_path(user)
-      expect(response.body).to include('Here are the detials about User')
+      expect(response.body).to include('Bio')
     end
   end
 end
