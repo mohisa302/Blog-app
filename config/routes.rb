@@ -11,9 +11,10 @@ Rails.application.routes.draw do
 
   get '/users', to: 'users#index'
   resources :users, only: %i[index show] do
-    resources :posts, only: %i[index show new create] do
-      resources :comments, only: %i[new create]
+    resources :posts, only: %i[index show new create destroy] do
+      resources :comments, only: %i[new create destroy], shallow: true
       resources :likes, only: [:create]
     end
   end
+  delete '/users/:user_id/posts/:post_id/comments/:id', to: 'comments#destroy', as: 'user_post_comment'
 end

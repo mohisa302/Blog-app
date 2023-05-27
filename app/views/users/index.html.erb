@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
+
 <div>
 <% @users.each do |user| %>
-<section>
-<a class="rounded-lg p-8 flex items-center" href="<%= user_path(user.id) %>">  
+<section class="h-full">
+  <a class="rounded-lg p-8 flex items-center h-full m-1" href="<%= user_path(user.id) %>">  
     <img class="user-avatar border" src="<%= user.photo %>">
-    <div class="ml-4 text-center flex inform border">
-      <h2 class="font-bold mr-4 mb-2 header-font"><%= user.name %></h2>
-      <p class="text-red-600 par">Number of posts: <%= user.posts_counter %></p>
+    <div class="border w-full h-36 ml-4">
+        <h2 class="font-bold ml-4 mt-4 header-font"><%= user.name %></h2>
+    <div class="flex justify-end">
+        <p class="text-red-600 mt-16 mr-2">Number of posts: <%= user.posts_counter %></p>
+        </div>
     </div>
-    </a>
+  </a>
     <!-- display user's posts, comments, likes, etc. -->
 </section>
 <% end %>
 </div>
-  </body>
-</html>
+

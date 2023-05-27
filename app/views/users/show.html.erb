@@ -1,9 +1,11 @@
 <div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
 <section class="rounded-lg p-2 flex items-center">
     <img class="border" src="<%= @user.photo %>">
-    <div class="ml-4 text-center flex inform border">
-      <h2 class="font-bold mr-4 mb-2 header-font"><%= @user.name %></h2>
-      <p class="text-red-600 par">Number of posts: <%= @user.posts_counter %></p>
+    <div class="border w-full h-36 ml-4">
+        <h2 class="font-bold ml-4 mt-4 header-font"><%= @user.name %></h2>
+    <div class="flex justify-end">
+        <p class="text-red-600 mt-16 mr-2">Number of posts: <%= @user.posts_counter %></p>
+        </div>
     </div>
     <!-- display user's posts, comments, likes, etc. -->
 </section>

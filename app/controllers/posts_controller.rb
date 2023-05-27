@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:comments, :likes).where(author_id: params[:user_id]).find(params[:id])
+    authorize! :read, @post
     @user = User.find(params[:user_id])
     new_comment = Comment.new
     new_like = Like.new
@@ -19,6 +20,22 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { render :new, locals: { post: @post } }
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    authorize! :destroy, @post
+
+    # Delete all comments associated with this post
+    @post.comments.delete_all
+
+    # Delete all likes associated with this post
+    @post.likes.delete_all
+
+    # Finally, delete the post itself
+    @post.destroy
+
+    redirect_to user_path(current_user)
   end
 
   def create
