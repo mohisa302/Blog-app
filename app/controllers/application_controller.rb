@@ -13,8 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def authenticate_user!
     return if request_from_localhost? # Allow requests from localhost without authentication
+
     super # Call the default implementation for non-localhost requests
   end
 

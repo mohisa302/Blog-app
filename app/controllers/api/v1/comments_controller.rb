@@ -15,13 +15,11 @@ module Api
 
       def create
         puts "Params: #{params}"
-        unless @user.id == @post.author_id
-          render json: { message: 'Only the owner of the post can add comments' }, status: :forbidden and return
-        end
-      
+        render json: { message: 'Only the owner of the post can add comments' }, status: :forbidden and return unless @user.id == @post.author_id
+
         @comment = @post.comments.build(comment_params)
         @comment.author_id = @user.id
-      
+
         if @comment.save
           render json: @comment, status: :created
         else
@@ -36,7 +34,7 @@ module Api
         @post = @user.posts.find(params[:post_id])
         puts "User: #{@user}, Post: #{@post}"
       end
-      
+
       def comment_params
         params.require(:comment).permit(:text)
       end
