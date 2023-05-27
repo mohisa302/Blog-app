@@ -31,7 +31,6 @@ class CommentsController < ApplicationController
       format.html { redirect_to "/users/#{current_user.id}/posts/#{params[:post_id]}" }
     end
   end
-  
   private
 
   def comment_params

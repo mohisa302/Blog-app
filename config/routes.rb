@@ -16,4 +16,5 @@ Rails.application.routes.draw do
       resources :likes, only: [:create]
     end
   end
+  delete '/users/:user_id/posts/:post_id/comments/:id', to: 'comments#destroy', as: 'user_post_comment'
 end
