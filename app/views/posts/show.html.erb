@@ -17,12 +17,19 @@
         </div>
         <div>
         <%= form_with model: [@user, @post.likes.build], url: user_post_likes_path(@user, @post) do |form| %>
-  <%= form.hidden_field :post_id, value: @post.id %>
-  <%= form.submit 'Like post', class: 'btn btn-primary', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
-<% end %>
-
-
-          </div>
+          <%= form.hidden_field :post_id, value: @post.id %>
+          <%= form.submit 'Like post', class: 'btn btn-primary', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
+        <% end %>
+         <div class="flex-center">
+  <% if can? :destroy , comment %>
+    <%= form_with model: comment, method: :delete, local: true, 
+    url: "/users/#{@post.author.id}/posts/#{@post.id}/comments/#{comment.id}/",
+      html: {class: "row flex-end"} do |f| %>
+      <%= f.submit "Delete Comment", class: "auto-width" %>
+    <% end %>
+  <% end %>
+</div>
+        </div>
       <% end %>
         </div>
     <% end %>

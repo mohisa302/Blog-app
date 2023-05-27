@@ -17,6 +17,21 @@ class CommentsController < ApplicationController
     end
   end
 
+  
+  def destroy
+    comment = Comment.find(params[:id])
+    respond_to do |format|
+      if comment.destroy
+        # Successfully deleted the record
+        flash[:success] = 'Comment deleted successfully'
+      else
+        # Failed to delete the record
+        flash.now[:error] = 'Error: Comment could not be deleted'
+      end
+      format.html { redirect_to "/users/#{current_user.id}/posts/#{params[:post_id]}" }
+    end
+  end
+  
   private
 
   def comment_params
