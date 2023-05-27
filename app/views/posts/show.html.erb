@@ -7,6 +7,11 @@
       </div>
       <h3 class="mt-4 text-blue-900"> <%= @post.title %> </h3>
       <p class=""><%= @post.text %></p>
+     <% if can? :destroy, @post %>
+  <%= form_with model: @post, method: :delete, local: true, url: user_post_path(@user, @post), data: { confirm: "Are you sure?" }, html: {class: "row flex-end"} do |f| %>
+    <%= f.submit "Delete Post", class: "auto-width bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+  <% end %>
+<% end %>
     </div>
 
     <% if @post.recent_comments.any? %>

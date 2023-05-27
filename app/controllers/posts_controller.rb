@@ -21,19 +21,21 @@ class PostsController < ApplicationController
       format.html { render :new, locals: { post: @post } }
     end
   end
-
+  
   def destroy
-    @user = User.find(params[:user_id]) # current_user
-    post = Post.find(params[:id])
-    post.comments.destroy_all
-    post.likes.destroy_all
-    if post.destroy
-      flash[:success] = 'Post deleted successfully'
-      redirect_to user_posts_path(@user)
-    else
-      flash.now[:error] = 'Error: Post could not be deleted'
-      redirect_to user_post_path(@user, post)
-    end
+    @post = Post.find(params[:id])
+    authorize! :destroy, @post
+  
+    # Delete all comments associated with this post
+    @post.comments.delete_all
+  
+    # Delete all likes associated with this post
+    @post.likes.delete_all
+  
+    # Finally, delete the post itself
+    @post.destroy
+  
+    redirect_to user_path(current_user)
   end
   
   def create
