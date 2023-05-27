@@ -14,6 +14,20 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def authenticate_user!
+    return if request_from_localhost? # Allow requests from localhost without authentication
+
+    super # Call the default implementation for non-localhost requests
+  end
+
+  def verified_request?
+    super || request_from_localhost?
+  end
+
+  def request_from_localhost?
+    request.remote_ip == '127.0.0.1' || request.remote_ip == '::1'
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[email name bio password password_confirmation])
   end

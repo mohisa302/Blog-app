@@ -17,4 +17,13 @@ Rails.application.routes.draw do
     end
   end
   delete '/users/:user_id/posts/:post_id/comments/:id', to: 'comments#destroy', as: 'user_post_comment'
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: %i[index show create] do
+        resources :posts, only: %i[index show create] do
+          resources :comments, only: %i[index show create]
+        end
+      end
+    end
+  end
 end
