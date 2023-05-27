@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
+
 <div>
 <% @users.each do |user| %>
 <section>
-<a class="rounded-lg p-8 flex items-center" href="<%= user_path(user.id) %>">  
+<a class="rounded-lg p-8 flex items-center" style="display:flex; margin:1rem;" href="<%= user_path(user.id) %>">  
     <img class="user-avatar border" src="<%= user.photo %>">
     <div class="ml-4 text-center flex inform border">
       <h2 class="font-bold mr-4 mb-2 header-font"><%= user.name %></h2>
@@ -17,5 +13,4 @@
 </section>
 <% end %>
 </div>
-  </body>
-</html>
+
