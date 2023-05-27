@@ -21,23 +21,23 @@ class PostsController < ApplicationController
       format.html { render :new, locals: { post: @post } }
     end
   end
-  
+
   def destroy
     @post = Post.find(params[:id])
     authorize! :destroy, @post
-  
+
     # Delete all comments associated with this post
     @post.comments.delete_all
-  
+
     # Delete all likes associated with this post
     @post.likes.delete_all
-  
+
     # Finally, delete the post itself
     @post.destroy
-  
+
     redirect_to user_path(current_user)
   end
-  
+
   def create
     post_params = params.require(:post).permit(:title, :text)
     @post = current_user.posts.build(post_params)

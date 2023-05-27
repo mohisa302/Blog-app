@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener'
 
   get '/users', to: 'users#index'
-  resources :users, only: [:index, :show] do
-    resources :posts, only: [:index, :show, :new, :create, :destroy] do
-      resources :comments, only: [:new, :create, :destroy], shallow: true
+  resources :users, only: %i[index show] do
+    resources :posts, only: %i[index show new create destroy] do
+      resources :comments, only: %i[new create destroy], shallow: true
       resources :likes, only: [:create]
     end
   end
