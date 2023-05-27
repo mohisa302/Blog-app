@@ -1,26 +1,24 @@
 AllCops:
   NewCops: enable
   Exclude:
-    - 'Guardfile'
-    - 'Rakefile'
-    - 'node_modules/**/*'
+    - "Guardfile"
+    - "Rakefile"
+    - "node_modules/**/*"
 
   DisplayCopNames: true
 
 Layout/LineLength:
-  Max: 200
+  Max: 250
 Metrics/MethodLength:
-  Max: 50
+  Max: 20
 Metrics/AbcSize:
   Max: 50
 Metrics/ClassLength:
-  Max: 155
+  Max: 150
 Metrics/BlockLength:
+  IgnoredMethods: ['describe']
   Max: 100
-Metrics/CyclomaticComplexity:
-  Max: 10
-Metrics/ModuleLength:
-  Max: 200
+
 
 Style/Documentation:
   Enabled: false

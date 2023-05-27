@@ -1,9 +1,8 @@
-
-  <ul class="li-box items-center" style="padding: 2rem;">
-    <h3 class="form-head font-bold" style="margin: 2rem;">Coment form</h3>
-<%= form_with(model: [@post, @comment], url: user_post_comments_path(@post.author, @post), local: true) do |form| %>
-        <%= form.text_area :text, placeholder: "Enter your comment", class: "border form-text-area" %>
-      </div>
-      <%= form.submit "Add Comment", class: "button border form-button", style: 'background-color: blue; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
-    <% end %>
-  </ul>
+<%= form_with model: @comment, url: user_post_comments_path do |form| %>
+  <div>
+    <%= form.label :text %>
+    <%= form.text_area :text, placeholder: 'Enter your comment' %>
+  </div>
+  <br>
+  <%= form.submit %>
+<% end %>

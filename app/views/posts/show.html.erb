@@ -1,40 +1,22 @@
-<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
-  <div>
-    <div class="rounded-lg p-8 items-center border">
-      <div class="flex justify-between">
-        <h3 class="font-bold">Post #<%= @post.id %> by <%= @user.name %></h3>
-        <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= @post.comments_counter %>, likes: <%= @post.likes_counter %></h5>
-      </div>
-      <h3 class="mt-4 text-blue-900"> <%= @post.title %> </h3>
-      <p class=""><%= @post.text %> </p>
-    </div>
- <% if @post.recent_comments.any? %>
-       <div class="border mt-4" style="padding: 2rem">
-      <% @post.comments.each do |comment| %>
-      <div>
-          <p class="font-bold"> <%= comment.author.name %>: Comment <%= comment.id %> <p>
-          <p> <%= comment.text %></p>
-        </div>
-        <div>
-        <%= form_with model: [@user, @post.likes.build], url: user_post_likes_path(@user, @post) do |form| %>
-          <%= form.hidden_field :post_id, value: @post.id %>
-          <%= form.submit 'Like post', class: 'btn btn-primary', style: 'background-color: red; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' %>
-        <% end %>
-         <div class="flex-center">
-  <% if can? :destroy , comment %>
-    <%= form_with model: comment, method: :delete, local: true, 
-    url: "/users/#{@post.author.id}/posts/#{@post.id}/comments/#{comment.id}/",
-      html: {class: "row flex-end"} do |f| %>
-      <%= f.submit "Delete Comment", class: "auto-width" %>
+<h1>One post</h1>
+
+<p><%= @post.title %> by <%= @post.author.name %> Comments <%= @post.comments_counter %>, Likes <%= @post.likes_counter %></p>
+
+<p><%= @post.text %></p>
+
+<ul>
+  <% @post.comments.includes(:author).each do |comment| %>
+    <p><%= comment.author.name %> : <%= comment.text %></p>
+        <% if can? :destroy, comment %>
+      <%= link_to "Delete Comment", user_post_comment_path(@post.author, @post, comment), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     <% end %>
   <% end %>
-</div>
-        </div>
-      <% end %>
-        </div>
-    <% end %>
-  </div>
-</div>
-  <li class="li-box">
-    <a href="<%= url_for(new_user_post_comment_path(@user, @post)) %>" class="button button-wide" style='background-color: black; color: white; font-weight: bold; padding: 0.5rem 1rem; margin:1rem; border-radius: 9999px;' >Add Comment</a>
-  </li>
+</ul>
+
+<%= form_with url: "/users/#{@post.author_id}/posts/#{@post.id}/likes" do |form| %>
+  <%= form.submit 'Like' %>
+<% end %>
+<% if can? :destroy, @post %>
+  <%= link_to "Delete post", user_post_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<% end %>
+<%= link_to 'Add comment', new_user_post_comment_path(@user, @post) %>

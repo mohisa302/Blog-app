@@ -1,27 +1,24 @@
-<div class="m-4" style="display:flex; flex-direction:column; align-items:stretch; row-gap:2vh">
-<section class="rounded-lg p-2 flex items-center">
-    <img class="border" src="<%= @user.photo %>">
-    <div class="ml-4 text-center flex inform border">
-      <h2 class="font-bold mr-4 mb-2 header-font"><%= @user.name %></h2>
-      <p class="text-red-600 par">Number of posts: <%= @user.posts_counter %></p>
-    </div>
-</section>
-<% @posts.each do |post| %>
-<a href="<%= user_post_path(@user, post) %>">
-    <div class="rounded-lg p-8 items-center border">
-        <h3 class="font-bold">Post #<%= post.id %>: <%= post.title %></h3>
-        <p class="mt-4"><%= post.text %> <%= post.recent_comments.length %></p>
-        <h5 class="text-red-900 font-bold mt-4 text-right"> comments: <%= post.comments_counter %>, likes: <%= post.likes_counter %></h5>
-    </div>
-    </a>
-  <% if post.recent_comments.any? %>
-        <div class="border">
-      <% post.recent_comments.each do |comment| %>
-          <p class="font-bold"  style="padding: 1rem"> <%= comment.author.name %>: <%= comment.text %> <p>
-      <% end %>
-        </div>
-    <% end %>
-     <% end %>
-     <button class="border p-6 font-bold mb-4" style="width:25%; margin-left:40%;">pagination</button>
-</div>
+<h1>All posts by one user</h1>
 
+<img src="<%= @user.photo %>" alt="User photo">
+<p><strong><%= @user.name %></strong> <span>Number of posts: <%= @user.posts_counter %> </span></p>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <p><%= link_to post.title, user_post_path(@user, post) %></p>
+      <p><%= truncate(post.text, length: 50) %></p>
+      <p>Comments <%= post.comments_counter %>, Likes <%= post.likes_counter %></p>
+      <ul>
+        <% post.return_recent_comments.includes(:author).each do |comment| %>
+          <p><%= comment.author.name %> : <%= comment.text %></p>
+        <% end %>
+      </ul>
+      <% if can? :destroy, post%>
+      <%=link_to "Delete post", user_post_path(post.author, post), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+      <%end%>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @posts, :container => false %>

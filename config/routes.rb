@@ -1,18 +1,25 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  devise_scope :user do
+    get '/users/sign_out', to: 'devise/sessions#destroy'
+  end
+
+  namespace :api do
+    namespace :v1 do
+      post :auth, to: 'authentication#create'
+      resources :users, only: [] do
+        resources :posts, only: [:index] do
+          resources :comments, only: %i[index create]
+        end
+      end
+    end
+  end
 
   root 'users#index'
-
-  mount LetterOpenerWeb::Engine, at: '/letter_opener'
-
-  get '/users', to: 'users#index'
-  resources :users, only: [:index, :show] do
-    resources :posts, only: [:index, :show, :new, :create, :destroy] do
-      resources :comments, only: [:new, :create, :destroy], shallow: true
+  resources :users, only: %i[index show] do
+    resources :posts, except: %i[update edit] do
+      resources :comments, only: %i[new create destroy]
       resources :likes, only: [:create]
     end
   end

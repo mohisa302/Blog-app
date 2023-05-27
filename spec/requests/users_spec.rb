@@ -1,28 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  describe 'GET /users' do
-    it 'returns a successful response' do
-      get '/users'
-      expect(response).to have_http_status(200)
-    end
+RSpec.describe 'Users controller', type: :request do
+  it 'renders users page' do
+    get '/users'
 
-    it 'renders the index template' do
-      get '/users'
-      expect(response).to render_template(:index)
-    end
+    expect(response).to have_http_status(:ok)
+
+    expect(response).to render_template(:index)
+
+    expect(response.body).to include('All users')
   end
 
-  describe 'GET /users/:id' do
-    let!(:user) { User.create(name: 'Aleem', photo: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80', bio: 'Teacher from Poland.', posts_counter: 0) }
-    before(:example) { get user_path(user) }
+  it 'renders a page for specific user' do
+    user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.',
+                       posts_counter: 0)
+    get "/users/#{user.id}"
 
-    it 'returns a successful response' do
-      expect(response).to have_http_status(200)
-    end
+    expect(response).to have_http_status(:ok)
 
-    it 'renders the show template' do
-      expect(response).to render_template(:show)
-    end
+    expect(response).to render_template(:show)
+
+    expect(response.body).to include('Single user')
   end
 end

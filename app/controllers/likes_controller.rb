@@ -1,16 +1,14 @@
 class LikesController < ApplicationController
-  before_action :authenticate_user!
-
   def create
-    like_params = params.require(:like).permit(:post_id)
-    @like = current_user.likes.build(like_params.merge(post_id: like_params[:post_id]))
-
+    @like = Like.new
+    @post = Post.find(params[:post_id])
+    @user = User.find(params[:user_id])
+    @like.post = @post
+    @like.author = current_user
     if @like.save
-      flash[:notice] = 'Like created successfully'
+      redirect_to user_post_path(@user, @post)
     else
-      flash[:alert] = 'Like creation failed'
+      render :new, status: :unprocessable_entity
     end
-
-    redirect_to user_post_path(@like.post.author_id, @like.post.id)
   end
 end

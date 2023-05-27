@@ -1,38 +1,41 @@
 class CommentsController < ApplicationController
-  def new
-    @post = Post.find(params[:post_id])
-    puts "@post: #{@post.inspect}"
-    @comment = @post.comments.build
-  end
+  load_and_authorize_resource
+  before_action :set_user, only: [:create]
+  before_action :set_post, only: [:create]
 
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params)
-    @comment.author_id = current_user.id
-
+    @comment = Comment.new(comment_params)
+    @comment.post = @post
+    @comment.author = current_user
     if @comment.save
-      redirect_to user_post_path(@post.author, @post), notice: 'Comment was successfully created.'
+      redirect_to user_post_path(@user, @post)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
-  
   def destroy
-    comment = Comment.find(params[:id])
-    respond_to do |format|
-      if comment.destroy
-        # Successfully deleted the record
-        flash[:success] = 'Comment deleted successfully'
-      else
-        # Failed to delete the record
-        flash.now[:error] = 'Error: Comment could not be deleted'
-      end
-      format.html { redirect_to "/users/#{current_user.id}/posts/#{params[:post_id]}" }
-    end
+    @comment = Comment.find(params[:id])
+    @post = @comment.post
+    @user = @post.author
+    @comment.destroy
+    @post.comments_counter -= 1
+    redirect_to user_post_path(@user, @post) if @post.save
   end
-  
+
+  def new
+    @comment = Comment.new
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
 
   def comment_params
     params.require(:comment).permit(:text)
