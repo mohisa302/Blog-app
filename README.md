@@ -40,6 +40,14 @@
 - Read posts by other users
 - Interact by giving likes/comments
 - User authentication and authorization
+- Install CanCanCan in your project.
+- Add a role column to the users table.
+- A user can delete a post if it is theirs or if they have an admin role.
+- A user can delete a comment if it is theirs or if they have an admin role.
+- Create an API endpoint to list all posts for a user.
+- Create an API endpoint to list all comments for a user's post.
+- Create an API endpoint to add a comment to a post. Remember that the owner of the comment is the user that makes it; it should not be set by passing a parameter.
+- Our API endpoints should receive JSON and respond JSON as well.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
