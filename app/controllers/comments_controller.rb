@@ -31,6 +31,7 @@ class CommentsController < ApplicationController
       format.html { redirect_to user_post_path(post.author, post) } # Use the post object to generate the URL
     end
   end
+
   private
 
   def comment_params
