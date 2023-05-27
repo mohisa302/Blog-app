@@ -1,7 +1,7 @@
 <h1>All posts by one user</h1>
 
 <img src="<%= @user.photo %>" alt="User photo">
-<p><strong><%= @user.name %></strong> <span>Number of posts: <%= @user.posts_counter %> </span></p>
+<p><strong><%= @user.name %></strong> <span>Available posts: <%= @user.posts_counter %> </span></p>
 
 <ul>
   <% @posts.each do |post| %>
