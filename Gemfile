@@ -9,6 +9,8 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+gem 'rswag'
+
 gem 'rack-cors'
 
 gem 'rails-controller-testing'
