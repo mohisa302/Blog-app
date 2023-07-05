@@ -21,9 +21,9 @@
   - [📜 License ](#-license-)
   </details>
 
-# 📰 Blogify - Rails App <a name="about-project"></a>
+# 📰 Coatino - Rails App <a name="about-project"></a>
 
-**Blogify** is a simple, easy-to-use blogging platform which allows users to create and publish their own blog posts. Users can also read posts from other users and give likes/comments.
+**Costino** is a simple, easy-to-use blogging platform which allows users to create and publish their own blog posts. Users can also read posts from other users and give likes/comments.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
