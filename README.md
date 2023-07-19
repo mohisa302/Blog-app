@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-
+## Table of contents
 - [📰 Blogify - Rails App ](#-blogify---rails-app-)
   - [🧰 Tech Stack ](#-tech-stack--)
   - [✨ Key Features ](#-key-features--)
