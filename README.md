@@ -1,7 +1,5 @@
 <a name="readme-top"></a>
 
-<details>
-<summary>Table of Contents</summary>
 
 - [📰 Blogify - Rails App ](#-blogify---rails-app-)
   - [🧰 Tech Stack ](#-tech-stack--)
